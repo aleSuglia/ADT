@@ -111,7 +111,7 @@ public:
 
 	}
 
-	void create_stack( const value_type& val = 0 )
+	void create_stack( const value_type& val = value_type() )
 	{
 		top = new StackNode<T>(val);
 

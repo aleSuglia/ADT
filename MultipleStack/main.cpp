@@ -7,12 +7,12 @@
 
 #include "MultipleStack.h"
 #include <iostream>
-
+#include <string>
 
 int main()
 {
-	MultipleStack<int> my_stacks(5);
 
+	MultipleStack<std::string> my_stack(5);
 
 
 
