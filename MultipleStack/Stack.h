@@ -85,6 +85,32 @@ public:
 		return *this;
 
 	}
+
+	~StackPointer()
+	{
+		delete_stack();
+
+	}
+
+	void delete_stack()
+	{
+		position curr_pos = top;
+
+		while( curr_pos != 0 )
+		{
+			position temp = curr_pos;
+			curr_pos = curr_pos->getNext();
+			delete temp;
+
+		}
+
+		delete curr_pos;
+
+
+
+
+	}
+
 	void create_stack( const value_type& val = 0 )
 	{
 		top = new StackNode<T>(val);
@@ -138,32 +164,6 @@ public:
 			}
 
 			std::cout << " ]" << std::endl;
-
-			/*StackPointer<T> aux_stack;
-			typename StackPointer<T>::value_type temp = stack.getTop();
-
-			stack.pop();
-			aux_stack.push(temp);
-			std::cout << "[ " << temp;
-
-			while( !stack.empty() )
-			{
-				temp = stack.getTop();
-				std::cout << ", " << temp;
-				stack.pop();
-				aux_stack.push(temp);
-
-
-			}
-
-			std::cout << " ]" << std::endl;
-
-			while( !aux_stack.empty() )
-			{
-				stack.push(aux_stack.getTop());
-				aux_stack.pop();
-
-			}*/
 
 
 		}

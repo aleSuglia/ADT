@@ -44,7 +44,7 @@ class ListCell
 
 /*
  * Overloading of the << operator
- * in order to print correctly everytime of
+ * in order to print correctly all the type of
  * data.
  *
  * */

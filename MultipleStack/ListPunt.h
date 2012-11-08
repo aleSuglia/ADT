@@ -61,16 +61,12 @@ class ListPunt : public LinearList<ListCell<T>, ListCell<T>*>
     }
     ~ListPunt()
     {
-    	for ( position curr = end_node();
-    		  curr != begin();
-    		  curr = previous(curr) )
-    	{
-    		position temp = curr;
-    		delete temp;
-    	}
+    	delete_list();
 
 
     }
+
+    void delete_list();
     void create();
     bool empty() const;
     position begin() const;
@@ -90,6 +86,25 @@ class ListPunt : public LinearList<ListCell<T>, ListCell<T>*>
         position sentinel_node;
         unsigned int list_len;
 };
+
+template< class T>
+void ListPunt<T>::delete_list()
+{
+
+	position curr = end_node();
+
+	while( curr != begin() )
+	{
+		position temp = curr;
+		curr = previous(curr);
+		delete temp;
+
+
+	}
+
+	delete curr;
+
+}
 
 template< class T>
 void ListPunt<T>::create()
