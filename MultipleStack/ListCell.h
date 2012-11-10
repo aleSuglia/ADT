@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-
 template <class T>
 class ListCell
 {
@@ -13,15 +12,8 @@ class ListCell
 
         /* <----------- Constructor Definition ------------------------> */
         ListCell() : elem(T()), next(0), prev(0) { }
-        ListCell(const ListCell<T>& copy_cell )
-        {
-        	elem = copy_cell.elem;
-        	next = copy_cell.next;
-        	prev = copy_cell.prev;
-
-        }
         ListCell( const value_type& first_val ) : elem(first_val), next(0), prev(0) {}
-        ListCell( const value_type& first_val, const position& next_node, const position& prev_node )
+        explicit ListCell( const value_type& first_val, const position& next_node, const position& prev_node )
         	: elem(first_val), next(next_node), prev(prev_node) {}
 
         ~ListCell() { }
@@ -44,7 +36,7 @@ class ListCell
 
 /*
  * Overloading of the << operator
- * in order to print correctly all the type of
+ * in order to print correctly everytime of
  * data.
  *
  * */

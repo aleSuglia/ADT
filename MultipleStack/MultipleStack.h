@@ -18,11 +18,11 @@ template<class T>
 class MultipleStack
 {
 public:
-	typedef T _Stack;
+	typedef T stack_type;
 	typedef typename ListPunt<StackPointer<T> >::value_type basic_value;
 	typedef typename ListPunt<StackPointer<T> >::position basic_position;
 
-	//MultipleStack(){}
+	MultipleStack(){}
 	MultipleStack(const MultipleStack<T>& copy_stack )
 	{
 		this->stacks = copy_stack.stacks;
@@ -31,69 +31,55 @@ public:
 	}
 	MultipleStack( unsigned int n_stack  = 10)
 	{
-		typename ListPunt<StackPointer<T> >::position curr_stack = stacks.begin();
-		StackPointer<T> temp(0);
+		basic_position curr_stack;
 
-		for( unsigned int i = 0; i < n_stack; i++ )
-		{
-			stacks.insert(curr_stack, temp);
-			curr_stack = stacks.next(curr_stack);
-
-		}
-
+		for( curr_stack = stacks.begin();
+			 curr_stack != stacks.end_node();
+			 curr_stack = stacks.next(curr_stack) )
+			stacks.insert(curr_stack, StackPointer<T>());
 
 	}
 
 	basic_value top( unsigned int num_stack )
 	{
-		typename ListPunt<StackPointer<T> >::position curr_stack = stacks.begin();
-		StackPointer<T> my_stack;
+		basic_position curr_stack = stacks.begin();
 
-		for( unsigned int i = 0; i < num_stack; i++ )
-		{
+		for( int i = 0; i < num_stack && !stacks.end(curr_stack); ++i )
 			curr_stack = stacks.next(curr_stack);
 
-		}
+		stack_type this_stack = stacks.read(curr_stack);
 
-		my_stack = curr_stack->getElemNode();
+		return this_stack.top();
 
-		return my_stack.getTop();
+
 
 	}
 
 	void push( unsigned int num_stack, const basic_value& val )
 	{
-		typename ListPunt<StackPointer<T> >::position curr_stack = stacks.begin();
-		StackPointer<T> my_stack;
+		basic_position curr_stack = stacks.begin();
 
-		for( unsigned int i = 0; i < num_stack; i++ )
-		{
+		for( int i = 0; i < num_stack && !stacks.end(curr_stack); ++i )
 			curr_stack = stacks.next(curr_stack);
 
-		}
+		stack_type this_stack = stacks.read(curr_stack);
 
-		my_stack = curr_stack->getElemNode();
-
-		my_stack.push(val);
+		this_stack.push(val);
 
 
 	}
 
 	void pop( unsigned int num_stack )
 	{
+		basic_position curr_stack = stacks.begin();
 
-		typename ListPunt<StackPointer<T> >::position curr_stack = stacks.begin();
-		StackPointer<T> my_stack;
-
-		for( unsigned int i = 0; i < num_stack; i++ )
-		{
+		for( int i = 0; i < num_stack && !stacks.end(curr_stack); ++i )
 			curr_stack = stacks.next(curr_stack);
 
-		}
+		stack_type this_stack = stacks.read(curr_stack);
 
-		my_stack = curr_stack->getElemNode();
+		this_stack.pop();
 
-		my_stack.pop();
 
 	}
 

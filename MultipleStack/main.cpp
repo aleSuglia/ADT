@@ -12,7 +12,7 @@
 int main()
 {
 
-	MultipleStack<std::string> my_stack(5);
+	MultipleStack<int> my_stack(5);
 
 
 

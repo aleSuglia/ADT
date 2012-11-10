@@ -4,13 +4,12 @@
 #include "LinearList.h"
 #include "ListCell.h"
 
-
 template <class T>
-class ListPunt : public LinearList<ListCell<T>, ListCell<T>*>
+class ListPunt : public LinearList<T, ListCell<T>*>
 {
     public:
-    typedef typename LinearList<ListCell<T>,ListCell<T>* >::position position;
-    typedef typename LinearList<ListCell<T>,ListCell<T>* >::value_type value_type;
+    typedef typename LinearList<T,ListCell<T>* >::position position;
+    typedef typename LinearList<T,ListCell<T>* >::value_type value_type;
 
     ListPunt()
     {
@@ -22,9 +21,6 @@ class ListPunt : public LinearList<ListCell<T>, ListCell<T>*>
     {
 
     	this->create();
-
-    	list_len = copy_list.list_len;
-
     	for( ListPunt<T>::position curr1 = copy_list.begin(),curr2 = this->begin();
     	     !copy_list.end(curr1);
     	     curr2 = this->next(curr2),curr1 = copy_list.next(curr1) )
@@ -61,13 +57,13 @@ class ListPunt : public LinearList<ListCell<T>, ListCell<T>*>
     }
     ~ListPunt()
     {
-    	delete_list();
+    	if( !empty() )
+    		delete_list();
 
 
     }
 
-    void delete_list();
-    void create();
+
     bool empty() const;
     position begin() const;
     position end_node() const;
@@ -83,9 +79,12 @@ class ListPunt : public LinearList<ListCell<T>, ListCell<T>*>
 
 
     private:
+    	void delete_list();
+        void create();
         position sentinel_node;
         unsigned int list_len;
 };
+
 
 template< class T>
 void ListPunt<T>::delete_list()
@@ -166,19 +165,16 @@ typename ListPunt<T>::value_type ListPunt<T>::read( position curr ) const
 template<class T>
 void ListPunt<T>::write( position curr, const value_type& new_elem )
 {
-	typename ListCell<T>::value_type value = new_elem.getElemNode();
-
 	if( !empty() )
-		curr->setElemNode(value);
+		curr->setElemNode(new_elem);
 }
 
 template< class T>
 void ListPunt<T>::insert( position& curr, const value_type& value )
 {
-	typename ListCell<T>::value_type val = value.getElemNode();
 
     position temp_node = new ListCell<T>;
-    temp_node->setElemNode(val);
+    temp_node->setElemNode(value);
     (curr->getPrevNode())->setNextNode(temp_node);
     temp_node->setPrevNode(curr->getPrevNode());
     temp_node->setNextNode(curr);

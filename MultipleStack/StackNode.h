@@ -14,14 +14,18 @@ class StackNode
 public:
 	typedef T value_type;
 	typedef StackNode<T>* position;
-	StackNode() : next(0), elem(0){}
+
+
+	StackNode() : next(0), elem(T()){}
+	StackNode( const value_type& val, position next_ptr = 0) : next(next_ptr), elem(val){}
+
 	StackNode( const StackNode<T>& copy )
 	{
 		this->next = copy.getNext();
 		this->elem = copy.getElem();
 
 	}
-	StackNode( const value_type& val, position next_ptr = 0 ) : next(next_ptr), elem(val){}
+
 	StackNode<T>& operator=(const StackNode<T>& copy_node )
 	{
 		if( &copy_node != this )

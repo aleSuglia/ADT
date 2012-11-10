@@ -22,7 +22,7 @@ public:
 
 	StackPointer() { create_stack(); stack_len = 0; }
 	StackPointer( const value_type& _val ){ create_stack(_val); stack_len = 0; }
-	StackPointer( const StackPointer<T>& copy )
+	StackPointer( StackPointer<T>& copy )
 	{
 		if( !copy.empty() )
 		{
@@ -51,24 +51,24 @@ public:
 
 	}
 
-	StackPointer<T> operator=( const StackPointer<T>& copy )
+	StackPointer<T>& operator=( const StackPointer<T>& copy_stack )
 	{
-		if( &copy != this )
+		if( &copy_stack != this )
 		{
-			if( !copy.empty() )
+			if( !copy_stack.empty() )
 			{
 
-				position curr_pos = copy.top;
+				position curr_pos = copy_stack.top;
 				value_type temp = curr_pos->getElem();
 				unsigned int i = 0;
 
-				this->stack_len = copy.stack_len;
+				this->stack_len = copy_stack.stack_len;
 
 				this->push(temp);
 
 				curr_pos = curr_pos->getNext();
 
-				while( i < copy.stack_len )
+				while( i < copy_stack.stack_len )
 				{
 					temp = curr_pos->getElem();
 					this->push(temp);
@@ -80,9 +80,12 @@ public:
 
 			}
 
+
+
 		}
 
 		return *this;
+
 
 	}
 
@@ -90,8 +93,8 @@ public:
 	{
 		delete_stack();
 
-	}
 
+	}
 	void delete_stack()
 	{
 		position curr_pos = top;
@@ -110,7 +113,6 @@ public:
 
 
 	}
-
 	void create_stack( const value_type& val = value_type() )
 	{
 		top = new StackNode<T>(val);
@@ -132,7 +134,6 @@ public:
 			throw std::logic_error("STACK POINTER(Exception): Stack is empty. ");
 		else
 		{
-			value_type item = top->getElem();
 			position temp = top->getNext();
 
 			delete top;
@@ -153,17 +154,17 @@ public:
 			typename StackPointer<T>::position curr_pos = stack.top;
 			unsigned int i = 0;
 
-			std::cout << "[ " << curr_pos->getElem();
+			os << "[ " << curr_pos->getElem();
 			curr_pos = curr_pos->getNext();
 
 			while( i < stack.stack_len )
 			{
-				std::cout << ", " << curr_pos->getElem();
+				os << ", " << curr_pos->getElem();
 				curr_pos = curr_pos->getNext();
 				i++;
 			}
 
-			std::cout << " ]" << std::endl;
+			os << " ]" << std::endl;
 
 
 		}
