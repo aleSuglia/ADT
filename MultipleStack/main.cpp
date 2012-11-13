@@ -5,14 +5,18 @@
  *      Author: AlexZ
  */
 
-#include "MultipleStack.h"
+//#include "MultipleStack.h"
 #include <iostream>
 #include <string>
+#include "Stack.h"
+#include "ListPunt.h"
 
 int main()
 {
 
-	MultipleStack<int> my_stack(5);
+	ListPunt<StackPointer<int> > my_stack;
+
+	my_stack.insert(my_stack.begin(), StackPointer<int>() );
 
 
 
